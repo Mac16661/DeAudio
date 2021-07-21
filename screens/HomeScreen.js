@@ -24,9 +24,6 @@ const HomeScreen = () => {
           <Player />
         </View>
 
-        <View style={styles.lowerFooter}>
-          <Text>Bottom Navigation</Text>
-        </View>
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -60,24 +57,12 @@ const styles = StyleSheet.create({
   upperFooter: {
     width: "97%",
     position: "absolute",
-    bottom: 63,
+    bottom: 0,
     height: 70,
     borderRadius: 10,
     borderColor: '#f2f2f2',
     borderWidth: 3,
     marginBottom: 5,
-  },
-  lowerFooter: {
-    width: "97%",
-    position: "absolute",
-    bottom: 0,
-    height: 60,
-    borderRadius: 10,
-    borderColor: '#f2f2f2',
-    borderWidth: 3,
-    marginBottom: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 
