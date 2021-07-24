@@ -17,25 +17,40 @@ export default function App() {
           name="Home"
           component={HomeScreen}
           options={{
-            tabBarLabel: () => {return null},
-            tabBarIcon: ({color,size}) => (
-              <Icon reverseColor name="home"  type='font-awesome' size={size}/>
+            tabBarLabel: () => {
+              return null;
+            },
+            tabBarIcon: ({ color, size }) => (
+              <Icon reverseColor name="home" type="font-awesome" size={size} />
             ),
           }}
         />
-        <Tab.Screen name="Search" component={Search}
+        <Tab.Screen
+          name="Search"
+          component={Search}
           options={{
-            tabBarLabel: () => {return null},
-            tabBarIcon: ({color, size}) => (
-              <Icon reverseColor name="search"  type='font-awesome' size={size}/>
+            tabBarLabel: () => {
+              return null;
+            },
+            tabBarIcon: ({ color, size }) => (
+              <Icon
+                reverseColor
+                name="applemusic"
+                type="fontisto"
+                size={size}
+              />
             ),
           }}
         />
-        <Tab.Screen name="User" component={User}
+        <Tab.Screen
+          name="User"
+          component={User}
           options={{
-            tabBarLabel: () => {return null},
-            tabBarIcon: ({color, size}) => (
-              <Icon reverseColor name="user"    type='font-awesome' size={size} />
+            tabBarLabel: () => {
+              return null;
+            },
+            tabBarIcon: ({ color, size }) => (
+              <Icon reverseColor name="user" type="font-awesome" size={size} />
             ),
           }}
         />
