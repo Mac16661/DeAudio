@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "react-native-elements";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import HomeScreen from "./screens/HomeScreen";
 import Search from "./screens/Search";
@@ -12,7 +13,16 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="Home">
+      <Tab.Navigator
+        initialRouteName="Home"
+        tabBarOptions={{
+          activeTintColor: "black",
+          inactiveTintColor: "grey",
+          style: {
+            backgroundColor: "#fff",
+          },
+        }}
+      >
         <Tab.Screen
           name="Home"
           component={HomeScreen}
@@ -21,7 +31,9 @@ export default function App() {
               return null;
             },
             tabBarIcon: ({ color, size }) => (
-              <Icon reverseColor name="home" type="font-awesome" size={size} />
+              <TouchableOpacity>
+                <Icon reverseColor name="home" size={size} color={color} />
+              </TouchableOpacity>
             ),
           }}
         />
@@ -33,12 +45,15 @@ export default function App() {
               return null;
             },
             tabBarIcon: ({ color, size }) => (
-              <Icon
-                reverseColor
-                name="applemusic"
-                type="fontisto"
-                size={size}
-              />
+              <TouchableOpacity>
+                <Icon
+                  reverseColor
+                  name="applemusic"
+                  type="fontisto"
+                  color={color}
+                  size={size}
+                />
+              </TouchableOpacity>
             ),
           }}
         />
@@ -50,7 +65,15 @@ export default function App() {
               return null;
             },
             tabBarIcon: ({ color, size }) => (
-              <Icon reverseColor name="user" type="font-awesome" size={size} />
+              <TouchableOpacity>
+                <Icon
+                  reverseColor
+                  name="user"
+                  type="antdesign"
+                  color={color}
+                  size={size}
+                />
+              </TouchableOpacity>
             ),
           }}
         />

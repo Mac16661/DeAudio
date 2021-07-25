@@ -2,12 +2,21 @@ import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { View, Text, SafeAreaView, StyleSheet, TextInput } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-//import { SearchBar } from "react-native-elements/";
-
-import Body from "./HomeScreenComponents/Body";
+import { Icon } from "react-native-elements";
+import { TouchableOpacity } from "react-native";
+import FavContainer from "./HomeScreenComponents/FavContainer";
+import PlaylistContainer from "./HomeScreenComponents/PlaylistContainer";
+import ArtistContainer from "./HomeScreenComponents/ArtistContainer";
+import AlbumContainer from "./HomeScreenComponents/AlbumContainer";
+import { ScrollView } from "react-native";
+import List from "./HomeScreenComponents/List";
 
 const HomeScreen = () => {
   const [search, setSearch] = useState("");
+
+  const handleClear = () => {
+    setSearch("");
+  };
 
   return (
     <SafeAreaProvider>
@@ -16,18 +25,50 @@ const HomeScreen = () => {
         <View style={styles.head}>
           <Text style={styles.greetings}>Hello Subhodip,</Text>
           <Text style={styles.que}>What you want to hear today?</Text>
-          <TextInput
-            placeholder="    Search here"
-            style={styles.searchBar}
-            onChangeText={(text) => {
-              setSearch(text);
-            }}
-            value={search}
-          />
+
+          <View style={styles.searchSection}>
+            <Icon
+              style={styles.searchIcon}
+              name="search"
+              size={25}
+              color="#000"
+            />
+            <TextInput
+              placeholder="Search here"
+              style={styles.searchBar}
+              onChangeText={(text) => {
+                setSearch(text);
+              }}
+              value={search}
+            />
+            <TouchableOpacity>
+              <Icon
+                style={styles.closeIcon}
+                name="closecircle"
+                type="antdesign"
+                size={20}
+                color="#000"
+                onPress={handleClear}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.horiScroll}>
+          <ScrollView
+            horizontal={true}
+            style={styles.bottonBar}
+            showsHorizontalScrollIndicator={false}
+          >
+            <FavContainer />
+            <PlaylistContainer />
+            <ArtistContainer />
+            <AlbumContainer />
+          </ScrollView>
         </View>
 
         <View style={styles.body}>
-          <Body />
+          <List />
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -61,17 +102,43 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingTop: 3,
   },
-  searchBar: {
-    fontSize: 24,
+  searchSection: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
     margin: 10,
+    borderRadius: 10,
+  },
+  searchIcon: {
+    padding: 10,
+  },
+  closeIcon: {
+    marginLeft: 10,
+  },
+  searchBar: {
+    flex: 1,
+    fontSize: 24,
     width: "90%",
     height: 50,
     backgroundColor: "#fff",
-    borderRadius: 10,
   },
   body: {
     width: "100%",
     flex: 1,
+    backgroundColor: "#f2f2f2",
+    flexDirection: "row",
+  },
+  horiScroll: {
+    height: "11%",
+    backgroundColor: "#f2f2f2",
+  },
+  bottonBar: {
+    display: "flex",
+    flexDirection: "row",
+    backgroundColor: "#f2f2f2",
+    paddingTop: 5,
   },
 });
 
