@@ -9,7 +9,7 @@ import PlaylistContainer from "./HomeScreenComponents/PlaylistContainer";
 import ArtistContainer from "./HomeScreenComponents/ArtistContainer";
 import AlbumContainer from "./HomeScreenComponents/AlbumContainer";
 import { ScrollView } from "react-native";
-import List from "./HomeScreenComponents/List";
+import Body from "./HomeScreenComponents/Body";
 
 const HomeScreen = () => {
   const [search, setSearch] = useState("");
@@ -68,7 +68,7 @@ const HomeScreen = () => {
         </View>
 
         <View style={styles.body}>
-          <List />
+          <Body />
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   head: {
     justifyContent: "center",
     width: "100%",
-    marginTop: 20,
+    marginTop: 10,
     height: 160,
     backgroundColor: "#f2f2f2",
     borderBottomWidth: 2,
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   horiScroll: {
+    margin: 0,
     height: "11%",
     backgroundColor: "#f2f2f2",
   },
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     backgroundColor: "#f2f2f2",
-    paddingTop: 5,
+    paddingTop: 3,
   },
 });
 

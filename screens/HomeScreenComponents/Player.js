@@ -1,32 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
 import AntIcon from "react-native-vector-icons/AntDesign";
+import {Audio} from "expo-av"
 
 
-const Player = () => {
+const Player = ({location, id, name}) => {
     //TODO: get audio from redux store and play here
-  return (
-    <View style={styles.player}>
-      <View style={styles.body}>
-        <View style={styles.name}>
-          <Text>Rap God</Text>
-        </View>
-        <View style={styles.container}>
-          <View style={styles.play}>
-            <TouchableOpacity>
-              <AntIcon name="caretright" size={25} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.dot}>
-            <TouchableOpacity>
-              <AntIcon name="stepforward" color="black" size={25} />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </View>
-  );
+
+    const [sound, setSound] = useState();
+
+    useEffect(() => {
+      load();
+    },[]);
+
+    const load = async() => {
+      console.log("ID: ",id," NAME:", name," LOCATION:", location);
+      const sound = new Audio.Sound();
+      await sound.loadAsync({uri: location});
+      setSound(sound);
+      sound.playAsync();
+    }
 };
 
 const styles = StyleSheet.create({
