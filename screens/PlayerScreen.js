@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import Player from "./PlayerScreenComponents/Player";
 
 const Search = () => {
   return (
     <View style={styles.container}>
-      <Text>Search Here!</Text>
+      <Player />
     </View>
   );
 };

@@ -30,10 +30,10 @@ const HomeScreen = () => {
             <Icon
               style={styles.searchIcon}
               name="search"
-              size={25}
+              size={30}
               color="#000"
             />
-            <TextInput
+            <TextInput style={styles.searchBar}
               placeholder="Search here"
               style={styles.searchBar}
               onChangeText={(text) => {
@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
   head: {
     justifyContent: "center",
     width: "100%",
-    marginTop: 10,
     height: 160,
     backgroundColor: "#f2f2f2",
     borderBottomWidth: 2,
@@ -109,13 +108,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
     margin: 10,
-    borderRadius: 10,
+    height: 15,
+  },searchBar: {
+    height: 100,
   },
   searchIcon: {
     padding: 10,
   },
   closeIcon: {
-    marginLeft: 10,
+    padding: 15,
   },
   searchBar: {
     flex: 1,

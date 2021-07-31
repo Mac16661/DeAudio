@@ -5,13 +5,17 @@ import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import HomeScreen from "./screens/HomeScreen";
-import Search from "./screens/Search";
+import PlayerScreen from "./screens/PlayerScreen";
 import User from "./screens/User";
+import { Provider } from "react-redux";
+import configureStore from './redux/store'
+
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
+    <Provider store={configureStore}>
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Home"
@@ -38,8 +42,8 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Search"
-          component={Search}
+          name="Music"
+          component={PlayerScreen}
           options={{
             tabBarLabel: () => {
               return null;
@@ -79,5 +83,6 @@ export default function App() {
         />
       </Tab.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }

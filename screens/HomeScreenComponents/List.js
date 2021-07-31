@@ -3,13 +3,16 @@ import { TouchableOpacity, ActivityIndicator } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import { Icon, Image } from "react-native-elements";
+import { setLocation, selectLocation } from "../../redux/uriSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-const List = (props) => {
-  //TODO: accept props from parent and render it out (need to pass audio to redux to get audio file in Player.js)
-
-  const name = props.songName;
+const List = ({ songName, songId, songUrl }) => {
+  //TODO: accept props from parent and render it out (need to pass audio to redux to get audio file in Player.js
 
   const [heartColor, setHeartColor] = useState("black");
+  const dispactch = useDispatch();
+
+  const location = useSelector(selectLocation);
 
   const handleHeartPress = () => {
     console.log("Heart pressed ");
@@ -20,50 +23,46 @@ const List = (props) => {
     }
   };
 
-  const handlePress = () => {
-    console.log("item pressed", name);
-  }
-
   return (
-    <TouchableOpacity onPress={handlePress}>
-    <View style={styles.body}>
-      <View style={styles.image}>
-        <Image
-          source={{
-            uri: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Chain_link_icon.png",
-          }}
-          style={{ width: 60, height: 60 }}
-          PlaceholderContent={<ActivityIndicator />}
-        />
-        <View style={styles.name}>
-          <Text style={styles.SongName}>{name}</Text>
-          <Text style={styles.ArtistName}>Eminim</Text>
+    <TouchableOpacity onPress={()=> dispactch(setLocation({name: songName, uri: songUrl, id: songId})) }>
+      <View style={styles.body}>
+        <View style={styles.image}>
+          <Image
+            source={{
+              uri: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Chain_link_icon.png",
+            }}
+            style={{ width: 60, height: 60 }}
+            PlaceholderContent={<ActivityIndicator />}
+          />
+          <View style={styles.name}>
+            <Text style={[ location.id === songId ? styles.songPlaying: styles.SongName]}>{songName}</Text>
+            <Text style={styles.ArtistName}></Text>
+          </View>
         </View>
-      </View>
 
-      <View style={styles.container}>
-        <View style={styles.play}>
-          <TouchableOpacity>
-            <AntIcon
-              name="heart"
-              size={25}
-              onPress={handleHeartPress}
-              color={heartColor}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.dot}>
-          <TouchableOpacity>
-            <Icon
-              name="dots-vertical"
-              type="material-community"
-              color="black"
-              size={30}
-            />
-          </TouchableOpacity>
+        <View style={styles.container}>
+          <View style={styles.play}>
+            <TouchableOpacity>
+              <AntIcon
+                name="heart"
+                size={25}
+                onPress={handleHeartPress}
+                color={heartColor}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.dot}>
+            <TouchableOpacity>
+              <Icon
+                name="dots-vertical"
+                type="material-community"
+                color="black"
+                size={30}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
     </TouchableOpacity>
   );
 };
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginLeft: 10,
-    marginRight:10,
+    marginRight: 10,
   },
   image: {
     marginLeft: 10,
@@ -97,6 +96,12 @@ const styles = StyleSheet.create({
   SongName: {
     fontSize: 16,
     fontWeight: "bold",
+    color: "black"
+  },
+  songPlaying: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "green"
   },
   ArtistName: {
     fontSize: 15,

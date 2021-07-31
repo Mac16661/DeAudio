@@ -6,40 +6,33 @@ import { View } from "react-native";
 import { Text } from "react-native";
 
 const Body = () => {
-  //TODO: need to featch audio file from device and pass it to list component to render it (note: need to use state management)
-
-  //need to implement play button on list componenet
 
   const [files, setFiles] = useState([]);
 
-  useEffect(() => {
-    // console.log(Platform);
-    if (Platform.OS === "android") {
-      MediaLibrary.requestPermissionsAsync();
-      MediaLibrary.getPermissionsAsync();
-
-      setFiles([]);
-      loadAudio();
-    }
-  }, []);
-
-  async function loadAudio() {
-    if (Platform.OS === "android") {
+  async function loadAudioList() {
+    if (Platform.OS === "android" || "ios") {
       const { assets } = await MediaLibrary.getAssetsAsync({
         mediaType: MediaLibrary.MediaType.audio,
       });
-
-      // console.log("ASSETS: \n", assets);
 
       setFiles(assets);
     }
   }
 
+  useEffect(() => {
+    if (Platform.OS === "android") {
+      MediaLibrary.requestPermissionsAsync();
+      MediaLibrary.getPermissionsAsync();
+
+      setFiles([]);
+      loadAudioList();
+    }
+  }, []);
+
   return (
     <ScrollView style={styles.body}>
       <Text style={styles.text}>All Music</Text>
       {files.map((file) => {
-        // console.log("\nname: ", file.filename, "\nid : ", file.id);
         return (
           <View key={file.id}>
             <List
@@ -50,8 +43,8 @@ const Body = () => {
           </View>
         );
       })}
-      <List />
     </ScrollView>
+    
   );
 };
 
