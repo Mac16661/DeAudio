@@ -11,72 +11,84 @@ const Player = () => {
   //TODO: get the audio list and play it one by one ...
 
   const location = useSelector(selectLocation);
-  
+
   const [sound, setSound] = useState();
   const [duration, setDuration] = useState();
   const [position, setPosition] = useState();
   const [progress, setProress] = useState();
   const [play, setPaly] = useState("play");
 
+
   useEffect(() => {
     if (location.id != null) {
-      // sound ? sound.stopAsync(): undefined;
+      sound ? sound.stopAsync() : undefined;
       load();
-      console.log("music changed ");
+      // sound ? async () => {
+      //       sound.stopAsync();
+      //       await sound.unloadAsync();
+      //       console.log("Unloading Sound");
+      //     }
+      //   : undefined;
     }
   }, [location.id]);
 
 
-
-  useEffect(() => {
-    return sound
-      ? async() => {
-          console.log("Unloading Sound");
-          await sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
-
-  onPlaybackStatusUpdate = playbackStatus => {
-    //console.log(playbackStatus.isLoaded);
+  onPlaybackStatusUpdate = (playbackStatus) => {
     setPosition(playbackStatus.positionMillis);
-    let prog = playbackStatus.positionMillis/playbackStatus.durationMillis
-    //console.log(prog);
+    let prog = playbackStatus.positionMillis / playbackStatus.durationMillis;
     setProress(prog);
-    if(playbackStatus.isPlaying) {
+    if (playbackStatus.isPlaying) {
       setPaly("pausecircle");
-    }  
+    }
 
-    if(playbackStatus.error){
+    if (playbackStatus.error) {
       console.log(error.message);
     }
-    
-  }
+  };
 
   const load = async () => {
     const sound = new Audio.Sound();
     await sound.loadAsync({ uri: location.uri });
     setSound(sound);
     sound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
-    sound.getStatusAsync().then(function(result) {
-      setDuration(result.durationMillis)
-    })
-    
-    sound.playAsync();
+    sound.getStatusAsync().then(function (result) {
+      setDuration(result.durationMillis);
+    });
+
+    await sound.playAsync();
   };
 
   const handlePlayPause = async () => {
-    sound.getStatusAsync().then(async(result)=> {
-      if(result.isPlaying === true && result.isLoaded === true){
+    sound.getStatusAsync().then(async (result) => {
+      if (result.isPlaying === true && result.isLoaded === true) {
         await sound.pauseAsync();
-        setPaly("play")
-      }else if(result.isPlaying === false && result.isLoaded === true){
+        setPaly("play");
+      } else if (result.isPlaying === false && result.isLoaded === true) {
         await sound.playAsync();
-        setPaly("pausecircle")
+        setPaly("pausecircle");
       }
-    })
-    
+    });
   };
+
+  function msConversion(millis) {
+    let sec = Math.floor(millis / 1000);
+    let hrs = Math.floor(sec / 3600);
+    sec -= hrs * 3600;
+    let min = Math.floor(sec / 60);
+    sec -= min * 60;
+  
+    sec = '' + sec;
+    sec = ('00' + sec).substring(sec.length);
+  
+    if (hrs > 0) {
+      min = '' + min;
+      min = ('00' + min).substring(min.length);
+      return hrs + ":" + min + ":" + sec;
+    }
+    else {
+      return min + ":" + sec;
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -94,10 +106,9 @@ const Player = () => {
         <Text style={styles.name}>{location.name}</Text>
         <LinearProgress color="black" variant="determinate" value={progress} />
         <View style={styles.nameTime}>
-        <Text style={styles.name}>{position}</Text>
-        <Text style={styles.name}>{duration}</Text>
+          <Text style={styles.name}>{msConversion(position)}</Text>
+          <Text style={styles.name}>{msConversion(duration)}</Text>
         </View>
-        
       </View>
 
       <View style={styles.buttonSection}>
@@ -124,11 +135,7 @@ const Player = () => {
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Icon
-            style={styles.heart}
-            name="arrow-downward"
-            size={30}
-          />
+          <Icon style={styles.heart} name="arrow-downward" size={30} />
         </TouchableOpacity>
 
         <TouchableOpacity>
@@ -161,10 +168,10 @@ const styles = StyleSheet.create({
     color: "black",
   },
   nameTime: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '95%',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "row",
+    width: "95%",
+    justifyContent: "space-between",
   },
   heart: {
     marginLeft: 10,

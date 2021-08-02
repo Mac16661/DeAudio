@@ -34,23 +34,13 @@ const HomeScreen = () => {
               color="#000"
             />
             <TextInput style={styles.searchBar}
-              placeholder="Search here"
+              placeholder="  Search here"
               style={styles.searchBar}
               onChangeText={(text) => {
                 setSearch(text);
               }}
               value={search}
             />
-            <TouchableOpacity>
-              <Icon
-                style={styles.closeIcon}
-                name="closecircle"
-                type="antdesign"
-                size={20}
-                color="#000"
-                onPress={handleClear}
-              />
-            </TouchableOpacity>
           </View>
         </View>
 
@@ -100,29 +90,27 @@ const styles = StyleSheet.create({
   que: {
     paddingLeft: 20,
     paddingTop: 3,
+    fontWeight: "bold",
   },
   searchSection: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     margin: 10,
-    height: 15,
+    height: 20,
+    borderRadius: 15,
   },searchBar: {
     height: 100,
   },
   searchIcon: {
     padding: 10,
   },
-  closeIcon: {
-    padding: 15,
-  },
   searchBar: {
     flex: 1,
     fontSize: 24,
     width: "90%",
-    height: 50,
     backgroundColor: "#fff",
   },
   body: {
