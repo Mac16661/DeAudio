@@ -4,9 +4,9 @@ import List from "./List";
 import * as MediaLibrary from "expo-media-library";
 import { View } from "react-native";
 import { Text } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Body = () => {
-
   const [files, setFiles] = useState([]);
 
   async function loadAudioList() {
@@ -29,6 +29,19 @@ const Body = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setLike();
+  }, []);
+
+  const setLike = async () => {
+    var mayArr = [];
+    try {
+      await AsyncStorage.setItem("LikedItems", JSON.stringify(mayArr));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <ScrollView style={styles.body}>
       <Text style={styles.text}>All Music</Text>
@@ -44,7 +57,6 @@ const Body = () => {
         );
       })}
     </ScrollView>
-    
   );
 };
 
@@ -53,12 +65,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#f2f2f2",
     width: "100%",
     flex: 1,
-  },text: {
+  },
+  text: {
     fontSize: 25,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     paddingLeft: 20,
     marginTop: -8,
-  }
+  },
 });
 
 export default Body;

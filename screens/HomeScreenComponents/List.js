@@ -5,6 +5,7 @@ import AntIcon from "react-native-vector-icons/AntDesign";
 import { Icon, Image } from "react-native-elements";
 import { setLocation, selectLocation } from "../../redux/uriSlice";
 import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const List = ({ songName, songId, songUrl }) => {
   //TODO: accept props from parent and render it out (need to pass audio to redux to get audio file in Player.js
@@ -14,13 +15,31 @@ const List = ({ songName, songId, songUrl }) => {
 
   const location = useSelector(selectLocation);
 
-  const handleHeartPress = () => {
-    console.log("Heart pressed ");
-    if (heartColor === "green") {
-      setHeartColor("black");
-    } else if (heartColor === "black") {
-      setHeartColor("green");
-    }
+  const handleHeartPress = async() => {
+    // console.log("Heart pressed ");
+    // if (heartColor === "green") {
+    //   setHeartColor("black");
+    // } else if (heartColor === "black") {
+    //   setHeartColor("green");
+    // }
+
+    // try {
+    //   const myArray = await AsyncStorage.getItem('@MySuperStore:key');
+    //   if (myArray !== null) {
+    //     // We have data!!
+    //     console.log(JSON.parse(myArray));
+
+    //   }
+    // } catch (error) {
+    //   // Error retrieving data
+    // }
+
+    // try {
+    //   await AsyncStorage.setItem("LikedItems", JSON.stringify());
+    // } catch (e) {
+    //   console.log(e);
+    // }
+    
   };
 
   return (

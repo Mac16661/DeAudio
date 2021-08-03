@@ -6,11 +6,12 @@ import { selectLocation } from "../../redux/uriSlice";
 import { useSelector } from "react-redux";
 import { ActivityIndicator } from "react-native";
 import { Icon, LinearProgress } from "react-native-elements";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Player = () => {
   //TODO: get the audio list and play it one by one ...
 
-  const location = useSelector(selectLocation);
+  const location = useSelector(selectLocation); //redux sotre
 
   const [sound, setSound] = useState();
   const [duration, setDuration] = useState();
@@ -18,20 +19,12 @@ const Player = () => {
   const [progress, setProress] = useState();
   const [play, setPaly] = useState("play");
 
-
   useEffect(() => {
     if (location.id != null) {
       sound ? sound.stopAsync() : undefined;
       load();
-      // sound ? async () => {
-      //       sound.stopAsync();
-      //       await sound.unloadAsync();
-      //       console.log("Unloading Sound");
-      //     }
-      //   : undefined;
     }
   }, [location.id]);
-
 
   onPlaybackStatusUpdate = (playbackStatus) => {
     setPosition(playbackStatus.positionMillis);
@@ -46,10 +39,19 @@ const Player = () => {
     }
   };
 
+  const lastPlayed = async () => {
+    try{
+      await AsyncStorage.setItem('lastPlayed', location.uri);
+    }catch(e) {
+      console.log(e);
+    }
+  }
+
   const load = async () => {
     const sound = new Audio.Sound();
     await sound.loadAsync({ uri: location.uri });
     setSound(sound);
+    lastPlayed();
     sound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
     sound.getStatusAsync().then(function (result) {
       setDuration(result.durationMillis);
@@ -70,22 +72,22 @@ const Player = () => {
     });
   };
 
+  // func to convert ms in min 
   function msConversion(millis) {
     let sec = Math.floor(millis / 1000);
     let hrs = Math.floor(sec / 3600);
     sec -= hrs * 3600;
     let min = Math.floor(sec / 60);
     sec -= min * 60;
-  
-    sec = '' + sec;
-    sec = ('00' + sec).substring(sec.length);
-  
+
+    sec = "" + sec;
+    sec = ("00" + sec).substring(sec.length);
+
     if (hrs > 0) {
-      min = '' + min;
-      min = ('00' + min).substring(min.length);
+      min = "" + min;
+      min = ("00" + min).substring(min.length);
       return hrs + ":" + min + ":" + sec;
-    }
-    else {
+    } else {
       return min + ":" + sec;
     }
   }
@@ -106,8 +108,12 @@ const Player = () => {
         <Text style={styles.name}>{location.name}</Text>
         <LinearProgress color="black" variant="determinate" value={progress} />
         <View style={styles.nameTime}>
-          <Text style={styles.name}>{msConversion(position)}</Text>
-          <Text style={styles.name}>{msConversion(duration)}</Text>
+          <Text style={styles.name}>
+            {msConversion(position) }
+          </Text>
+          <Text style={styles.name}>
+            {msConversion(duration) }
+          </Text>
         </View>
       </View>
 
