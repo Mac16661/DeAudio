@@ -22,23 +22,6 @@ const List = ({ songName, songId, songUrl }) => {
     // } else if (heartColor === "black") {
     //   setHeartColor("green");
     // }
-
-    // try {
-    //   const myArray = await AsyncStorage.getItem('@MySuperStore:key');
-    //   if (myArray !== null) {
-    //     // We have data!!
-    //     console.log(JSON.parse(myArray));
-
-    //   }
-    // } catch (error) {
-    //   // Error retrieving data
-    // }
-
-    // try {
-    //   await AsyncStorage.setItem("LikedItems", JSON.stringify());
-    // } catch (e) {
-    //   console.log(e);
-    // }
     
   };
 

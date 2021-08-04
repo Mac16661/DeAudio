@@ -33,13 +33,18 @@ const HomeScreen = () => {
               size={30}
               color="#000"
             />
-            <TextInput style={styles.searchBar}
+            <TextInput
+              style={styles.searchBar}
               placeholder="  Search here"
               style={styles.searchBar}
               onChangeText={(text) => {
                 setSearch(text);
               }}
               value={search}
+              onFocus={() => {
+                //TODO: click to navigate to new screen
+                console.log("Searched");
+              }}
             />
           </View>
         </View>
@@ -68,7 +73,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    backgroundColor: "#fff",
+    backgroundColor: "#f2f2f2",
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
@@ -101,7 +106,8 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 20,
     borderRadius: 15,
-  },searchBar: {
+  },
+  searchBar: {
     height: 100,
   },
   searchIcon: {
@@ -120,9 +126,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   horiScroll: {
-    margin: 0,
     height: "11%",
     backgroundColor: "#f2f2f2",
+    bottom: -5,
   },
   bottonBar: {
     display: "flex",

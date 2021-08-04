@@ -33,6 +33,7 @@ const Body = () => {
     setLike();
   }, []);
 
+  //initilizing setLike with an empty array to store all liked songs.
   const setLike = async () => {
     var mayArr = [];
     try {
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "bold",
     paddingLeft: 20,
-    marginTop: -8,
+    marginTop: 0,
   },
 });
 
