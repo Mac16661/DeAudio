@@ -3,13 +3,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
 import HomeScreen from "./screens/HomeScreen";
 import PlayerScreen from "./screens/PlayerScreen";
 import User from "./screens/User";
 import { Provider } from "react-redux";
 import configureStore from './redux/store'
-
+import PlayerWidget from "./screens/PlayerWidget";
+// import Search from "./screens/PlayerScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -83,6 +83,7 @@ export default function App() {
         />
       </Tab.Navigator>
     </NavigationContainer>
+    <PlayerWidget />
     </Provider>
   );
 }

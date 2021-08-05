@@ -3,29 +3,35 @@ import { StatusBar } from "expo-status-bar";
 import { View, Text, SafeAreaView, StyleSheet, TextInput } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Icon } from "react-native-elements";
-import { TouchableOpacity } from "react-native";
 import FavContainer from "./HomeScreenComponents/FavContainer";
 import PlaylistContainer from "./HomeScreenComponents/PlaylistContainer";
 import ArtistContainer from "./HomeScreenComponents/ArtistContainer";
 import AlbumContainer from "./HomeScreenComponents/AlbumContainer";
 import { ScrollView } from "react-native";
 import Body from "./HomeScreenComponents/Body";
+// import SearchScreen from "./SearchScreen";
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const HomeScreen = () => {
-  const [search, setSearch] = useState("");
 
-  const handleClear = () => {
-    setSearch("");
-  };
+// const Stack = createNativeStackNavigator();
+{/* <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      </Stack.Navigator>
+      </NavigationContainer> */}
 
+
+const HomeScreen = ({navigation}) => {
   return (
+    
     <SafeAreaProvider>
+      
       <StatusBar style="auto" />
       <SafeAreaView style={styles.container}>
         <View style={styles.head}>
           <Text style={styles.greetings}>Hello Subhodip,</Text>
           <Text style={styles.que}>What you want to hear today?</Text>
-
           <View style={styles.searchSection}>
             <Icon
               style={styles.searchIcon}
@@ -37,16 +43,14 @@ const HomeScreen = () => {
               style={styles.searchBar}
               placeholder="  Search here"
               style={styles.searchBar}
-              onChangeText={(text) => {
-                setSearch(text);
-              }}
-              value={search}
               onFocus={() => {
                 //TODO: click to navigate to new screen
                 console.log("Searched");
+                navigation.navigate('SearchScreen')
               }}
             />
           </View>
+
         </View>
 
         <View style={styles.horiScroll}>
@@ -63,10 +67,11 @@ const HomeScreen = () => {
         </View>
 
         <View style={styles.body}>
-          <Body />
+         <Body />
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
+    
   );
 };
 
